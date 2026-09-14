@@ -1,0 +1,163 @@
+README.md
+
+
+
+# Node.js
+
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm/
+
+# Build output
+
+dist/
+build/
+coverage/
+
+# Environment files
+
+.env
+.env.*
+!.env.example
+
+
+# Python
+
+**pycache**/
+*.py[cod]
+*$py.class
+*.so
+
+.venv/
+venv/
+env/
+ENV/
+
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+
+.mypy_cache/
+.pytype/
+.ruff_cache/
+
+*.egg-info/
+.eggs/
+*.egg
+wheels/
+pip-wheel-metadata/
+
+.dockerignore 
+
+# Logs
+
+
+
+*.log
+logs/
+
+
+
+# OS files
+
+
+
+.DS_Store
+Thumbs.db
+desktop.ini
+
+
+
+# IDE / Editors
+
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+*.sublime*
+
+
+
+# Temporary / Backup files
+
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+*.swo
+*~
+
+
+
+# Terraform
+
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfvars
+*.tfvars.json
+crash.log
+crash.*.log
+
+# Terraform variable files
+
+# Keep example files in Git
+
+!*.tfvars.example
+
+# Terraform lock file should normally be committed
+
+# *.terraform.lock.hcl
+
+
+
+# Kubernetes
+
+
+*.kubeconfig
+kubeconfig
+.kube/
+
+
+
+# Docker
+
+
+docker-compose.override.yml
+
+
+
+# Certificates / Keys
+
+*.pem
+*.key
+*.crt
+
+# SSH private keys
+
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+
+
+
+# Python / Jupyter
+
+.ipynb_checkpoints/
+
+# Local configuration
+
+*.local
+config.local.*
+secrets/
+EOF
+EOF
+EOF
