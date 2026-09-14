@@ -12,13 +12,14 @@ RUN npm run build
 
 FROM nginx:alpine 
 
-RUN adduser -D -u 1010 lokesh
+# RUN adduser -D -u 1010 lokesh
 
-COPY --chown=lokesh:lokesh nginx.conf /etc/nginx/nginx.conf
-COPY --from=build /app/dist /usr/share/nginx/html 
+# COPY --chown=lokesh:lokesh nginx.conf /etc/nginx/nginx.conf
+# COPY --from=build /app/dist /usr/share/nginx/html 
  
-USER lokesh
+# USER lokesh
 
+COPY --from=build /app/dist /usr/share/nginxhtml
 EXPOSE 8080
 
 CMD ["nginx", "-g", "daemon-off;"]
