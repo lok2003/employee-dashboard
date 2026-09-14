@@ -37,10 +37,9 @@ jobs:
           password: ${{ secrets.Docker_PASSWORD }}
       - name: Docker Build 
         run: |
-          docker build -t employee-dashboard:${{ github.sha }} .
+          docker build -t ${{ secrets.DOCKER_USERNAME }}/employee-dashboard:${{ github.sha }} .
       - name: Docker Push 
         if: github.ref == 'refs/heads/main'
         run: |
-          docker tag employee-dashboard:${{secrets.DOCKER_USERNAME}}/employee-dashboard:${{ github.sha }}
-          docker push ${{secrets.DOCKER_USERNAME}}/employee-dashboard:${{ github.sha }}
+          docker push ${{ secrets.DOCKER_USERNAME }}/employee-dashboard:${{ github.sha }}            
 
