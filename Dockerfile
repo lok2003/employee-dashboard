@@ -19,7 +19,7 @@ FROM nginx:alpine
  
 # USER lokesh
 
-COPY --from=build /app/dist /usr/share/nginxhtml
+COPY --from=build /app/dist /usr/share/nginx/html
 EXPOSE 8080
 
-CMD ["nginx", "-g", "daemon-off;"]
+CMD ["nginx", "-g", "daemon off;"]
