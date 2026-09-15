@@ -1,0 +1,91 @@
+namespace:
+  name: frontend-dashboard 
+replicaCount: 3
+
+selectorLabels:
+  app: frontend
+
+labels:
+  app: frontend
+  tier: frontend
+  version: v1.0.0
+
+image:
+  repository: lok2003/frontend-dashboard
+  tag: v1.11
+  pullPolicy: IfNotPresent 
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 256Mi
+  limits:
+    cpu: 500m
+    memory: 512Mi
+
+readiness:
+  httpGet:
+    path: /
+    port: 80 
+  initialDelaySeconds: 15
+  periodSeconds: 10
+liveness:
+  httpGet: 
+    path: /
+    port: 80 
+  initialDelaySeconds: 20
+  periodSeconds: 15 
+startup:
+  httpGet:
+    path: /
+    port: 80
+  initialDelaySeconds: 10
+  failureThreshold: 20  
+
+service:
+  enabled: true
+  type: ClusterIP 
+  protocol: TCP  
+  port: 80 
+  targetPort: 80
+
+configmap:
+  enabled: true
+  data:
+    APP_NAME: "Employee Dashboard"
+    APP_VERSION: "v1.0.0"
+  
+secret:
+  enabled: true
+  type: Opaque
+  stringData:
+    DB_USERNAME: "admin"
+    DB_PASSWORD: "password123"
+
+
+pvc:
+  enabled: false 
+  name: frontend-pvc
+  storageClassName: "standard"
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 5Gi
+
+
+ingress:
+  enabled: true
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+  className: nginx
+  hosts:
+  - host: example.com 
+    paths:
+      - path: /nginx(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            port: 
+              number: 80  

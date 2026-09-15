@@ -1,0 +1,19 @@
+{{- if .Values.service.enabled }}
+apiVersion: v1 
+kind: Service 
+metadata:
+  name: {{ include "frontend-name" . }}-service 
+  namespace: {{ include "frontend-namespace" . }}
+spec:
+  type: {{ .Values.service.type }}
+  selector:
+  {{- range $key, $value := .Values.selectorLabels }} 
+    {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  ports:
+    - protocol: {{ .Values.service.protocol }}
+      port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.targetPort }}
+{{- end }}
+
+
