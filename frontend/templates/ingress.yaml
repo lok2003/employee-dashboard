@@ -4,8 +4,7 @@ kind: Ingress
 metadata: 
   name: {{ include "frontend-name" . }}-ingress
   namespace: {{ include "frontend-namespace" . }}
-  annotations:
-    {{- toYaml .Values.ingress.annotations | nindent 4 }}
+  
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
