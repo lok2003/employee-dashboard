@@ -4,7 +4,8 @@ kind: Ingress
 metadata: 
   name: {{ include "frontend-name" . }}-ingress
   namespace: {{ include "frontend-namespace" . }}
-  
+  annotations:
+  {{- toYaml .Values.ingress.annotations | nindent 4 }}
 spec:
   ingressClassName: {{ .Values.ingress.className }}
   rules:
@@ -17,7 +18,7 @@ spec:
             pathType: {{ .pathType }}
             backend:
               service:
-                name: {{ include "frontend-name" $ }}-service
+                name: {{ .backend.service.name }}
                 port:
                   number: {{ .backend.service.port.number }}
             {{- end}}

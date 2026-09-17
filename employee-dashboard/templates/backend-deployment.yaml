@@ -1,0 +1,38 @@
+apiVersion: apps/v1 
+kind: Deployment 
+metadata:
+  name: {{ include "frontend-name" . }}-backend 
+  namespace: {{ include "frontend-namespace" . }}
+spec:
+  replicas: {{ .Values.backend.replicaCount | default 1 }}
+  selector:
+    matchLabels:
+    {{- range $key, $value := .Values.backend.selectorLabels }}
+      {{ $key }}: {{ $value | quote }}
+    {{- end }}
+  template:
+    metadata:
+      labels:
+        {{- range $key, $value := .Values.backend.labels }}
+        {{ $key }}: {{ $value | quote }}  
+        {{- end }}
+    spec:
+      containers:
+      {{- with .Values.backend.image }}
+        - name: {{ .name }}
+          image: "{{ .repository }}:{{ .tag }}"
+          imagePullPolicy: {{ .pullPolicy }}
+      {{- end }}
+          
+          resources:
+            {{- toYaml .Values.backend.resources | nindent 12 }}
+          
+          readinessProbe:
+            {{- toYaml .Values.backend.readiness | nindent 12 }}
+          livenessProbe:
+            {{- toYaml .Values.backend.liveness | nindent 12 }}
+          startupProbe: 
+            {{- toYaml .Values.backend.startup | nindent 12 }}
+
+
+

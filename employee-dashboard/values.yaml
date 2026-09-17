@@ -1,6 +1,6 @@
 namespace:
   name: frontend-dashboard 
-replicaCount: 3
+replicaCount: 2
 
 selectorLabels:
   app: frontend
@@ -89,5 +89,75 @@ ingress:
         pathType: Prefix 
         backend:
           service:
+            name:  employee-dashboard-service
             port: 
               number: 80  
+      - path: /api 
+        pathType: Prefix
+        backend:
+          service:
+            name:  employee-dashboard-backend-service
+            port:
+              number: 8000
+
+
+
+backend:
+  replicaCount: 1
+  selectorLabels:
+    app: backend 
+  labels:
+    app: backend
+    tier: backend
+    version: v1.0.0
+  image: 
+    name: backend-deployment
+    repository: lok2003/backend
+    tag: v2.19 
+    pullPolicy: IfNotPresent
+  
+  resources:
+    requests:
+      cpu: 250m
+      memory: 256Mi
+    limits: 
+      cpu: 500m
+      memory: 512Mi
+  readiness:
+    httpGet:
+      path: /api/health
+      port: 8000
+    initialDelaySeconds: 10
+    periodSeconds: 10
+  liveness:
+    httpGet:
+      path: /api/health
+      port: 8000
+    initialDelaySeconds: 20
+    periodSeconds: 15
+  startup:
+    httpGet:
+      path: /api/health
+      port: 8000
+    initialDelaySeconds: 10
+    failureThreshold: 30
+    periodSeconds: 10
+
+  service:
+    type: ClusterIP
+    port: 8000 
+    targetPort: 8000 
+    protocol: TCP 
+  ingress:
+    enabled: true
+    className: nginx
+    hosts:
+      - host: example.com 
+        paths:
+          - path: /api 
+            pathType: Prefix
+            backend:
+              service:
+                port: 
+                  number: 8000
+     
