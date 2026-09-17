@@ -30,16 +30,18 @@ function ProtectedLayout({ onLogout }) {
 
 export default function App() {
   const [loggedIn, setLoggedIn] = useState(
-    () => localStorage.getItem("employeeDashboardLoggedIn") === "true"
+    () => Boolean(localStorage.getItem("employeeDashboardToken"))
   );
 
-  const login = () => {
-    localStorage.setItem("employeeDashboardLoggedIn", "true");
+  const login = (session) => {
+    localStorage.setItem("employeeDashboardToken", session.access_token);
+    localStorage.setItem("employeeDashboardUser", JSON.stringify(session.user));
     setLoggedIn(true);
   };
 
   const logout = () => {
-    localStorage.removeItem("employeeDashboardLoggedIn");
+    localStorage.removeItem("employeeDashboardToken");
+    localStorage.removeItem("employeeDashboardUser");
     setLoggedIn(false);
   };
 

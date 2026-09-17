@@ -1,12 +1,14 @@
 import { useState } from "react";
+import { api } from "../api";
 
 export default function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault();
     setError("");
 
@@ -15,8 +17,14 @@ export default function Login({ onLogin }) {
       return;
     }
 
-    // Demo login: any non-empty email/password is accepted.
-    onLogin();
+    setLoading(true);
+    try {
+      onLogin(await api.login(email.trim(), password));
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -53,8 +61,8 @@ export default function Login({ onLogin }) {
 
         {error && <div className="form-error">{error}</div>}
 
-        <button className="primary-button login-button" type="submit">Sign in</button>
-        <p className="demo-note">Demo mode — enter any email and password.</p>
+        <button className="primary-button login-button" type="submit" disabled={loading}>{loading ? "Signing in..." : "Sign in"}</button>
+        <p className="demo-note">Demo account: admin@example.com / 123456</p>
       </form>
     </div>
   );
