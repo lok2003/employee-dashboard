@@ -67,7 +67,10 @@ jobs:
           password: ${{ secrets.Docker_PASSWORD }}
       - name: Docker Build 
         run: |
-          docker build -t ${{ secrets.DOCKER_USERNAME }}/frontend-dashboard:${VERSION} .
+          docker build \
+          -t ${{ secrets.DOCKER_USERNAME }}/frontend-dashboard:${VERSION} \
+          -f src/Dockerfile \
+          . 
       - name: Docker Push 
         if: github.ref == 'refs/heads/main'
         run: |
