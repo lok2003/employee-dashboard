@@ -8,7 +8,7 @@ from fastapi import Depends, FastAPI, Header, HTTPException, status
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, EmailStr, Field
 
-DATABASE_PATH = Path(__file__).resolve().parent / "employee_dashboard.db"
+DATABASE_PATH = Path("/app/data/employee_dashboard.db")
 TOKENS: dict[str, int] = {}
 SEED_EMPLOYEES = [
     (1001, "Arjun Kumar", "arjun@example.com", "Engineering", "Software Engineer", "Active"),
