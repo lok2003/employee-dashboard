@@ -52,3 +52,14 @@ variable "aks" {
     dns_service_ip = string
   })
 }
+
+
+variable "acr" {
+  type = object({
+    frontend_name = string
+    backend_name  = string
+    sku           = string
+    admin_enabled = bool
+  })
+}
+

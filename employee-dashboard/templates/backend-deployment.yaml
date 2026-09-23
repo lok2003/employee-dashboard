@@ -33,6 +33,13 @@ spec:
             {{- toYaml .Values.backend.liveness | nindent 12 }}
           startupProbe: 
             {{- toYaml .Values.backend.startup | nindent 12 }}
+          volumeMounts:
+            - name: sqlite-storage
+              mountPath: /app/data 
+      volumes:
+        - name: sqlite-storage
+          persistentVolumeClaim:
+            claimName: employee-dashboard-pvc     
 
 
 

@@ -12,6 +12,7 @@ module "sg" {
   ingress = var.ingress
 }
 
+
 module "eks-cluster-role" {
   source = "./modules/eks-cluster-role"
 }
@@ -33,4 +34,14 @@ module "node-group" {
   cluster    = module.cluster.eks_cluster
   role_arn   = module.node-role.eks_node_iam_role
   subnet_ids = module.vpc.private_subnet_ids
+}
+
+module "addons" {
+  source       = "./modules/addons"
+  cluster_name = module.cluster.eks_cluster
+}
+
+module "ecr" {
+  source = "./modules/ecr"
+  ecr    = var.ecr
 }

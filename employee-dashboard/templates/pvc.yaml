@@ -7,7 +7,13 @@ metadata:
 spec:
   accessModes:
     {{- toYaml .Values.pvc.accessModes | nindent 4 }}
-  storageClassName: {{ .Values.pvc.storageClassName | quote }}
+
+{{- if eq .Values.cloud.provider "azure" }}
+  storageClassName: {{ .Values.pvc.storageClass.azure | quote }}
+{{- else if eq .Values.cloud.provider "aws" }}
+  storageClassName: {{ .Values.pvc.storageClass.aws | quote }}
+{{- end }}
+
   resources:
-    {{- toYaml .Values.pvc.resources | nindent 4 }}
+    {{- toYaml .Values.pvc.resources | nindent 4  }}   
 {{- end }}

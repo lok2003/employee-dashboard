@@ -12,6 +12,7 @@ resource "aws_iam_role" "eks_node_role" {
   })
 }
 
+
 resource "aws_iam_role_policy_attachment" "eks_worker" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role       = aws_iam_role.eks_node_role.name
@@ -26,4 +27,10 @@ resource "aws_iam_role_policy_attachment" "eks_ecr" {
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly"
   role       = aws_iam_role.eks_node_role.name
 }
+
+resource "aws_iam_role_policy_attachment" "eks_storage" {
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AmazonEBSCSIDriverPolicy"
+  role       = aws_iam_role.eks_node_role.name
+}
+
 

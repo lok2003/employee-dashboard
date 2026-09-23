@@ -1,6 +1,9 @@
+cloud:
+  provider: aws 
+
 namespace:
-  name: frontend-dashboard 
-replicaCount: 2
+  name: dashboard 
+replicaCount: 1
 
 selectorLabels:
   app: frontend
@@ -64,9 +67,14 @@ secret:
 
 
 pvc:
-  enabled: false 
-  name: frontend-pvc
-  storageClassName: "standard"
+  enabled: true  
+  storageClass: 
+    azure: managed-csi 
+    aws: gp2 
+  # azure:
+  #   storageClassName: "default"
+  # aws:
+  #   storageClassName: gp2 
   accessModes:
     - ReadWriteOnce
   resources:
@@ -113,7 +121,7 @@ backend:
   image: 
     name: backend-deployment
     repository: lok2003/backend
-    tag: v2.19 
+    tag: v2.23
     pullPolicy: IfNotPresent
   
   resources:
@@ -121,7 +129,7 @@ backend:
       cpu: 250m
       memory: 256Mi
     limits: 
-      cpu: 500m
+      cpu: 1000m
       memory: 512Mi
   readiness:
     httpGet:
@@ -161,3 +169,5 @@ backend:
                 port: 
                   number: 8000
      
+
+

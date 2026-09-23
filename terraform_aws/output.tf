@@ -20,3 +20,19 @@ output "eks-cluster" {
 output "node-group" {
   value = module.node-role
 }
+
+output "frontend_arn" {
+  value = module.ecr.frontend_arn
+}
+
+output "frontend_ecr_repository_url" {
+  value = module.ecr.frontend_ecr_repository_url
+}
+
+output "backend_arn" {
+  value = module.ecr.backend_arn
+}
+
+output "backend_ecr_repository_url" {
+  value = module.ecr.backend_ecr_repository_url
+}
