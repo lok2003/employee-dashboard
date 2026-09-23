@@ -21,3 +21,12 @@ variable "aks" {
     dns_service_ip = string
   })
 }
+
+
+# variable "log_analytics_workspace_id" {
+#   type = string
+# }
+
+# variable "azure_monitor_workspace_id" {
+#   type = string
+# }

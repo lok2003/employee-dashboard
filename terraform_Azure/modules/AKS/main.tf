@@ -8,6 +8,7 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     node_count     = var.aks.node_count
     vm_size        = var.aks.vm_size
     vnet_subnet_id = var.subnet_id
+    #temporary_name_for_rotation = "temprot"
   }
   identity {
     type = "SystemAssigned"
@@ -15,6 +16,10 @@ resource "azurerm_kubernetes_cluster" "cluster" {
   node_provisioning_profile {
     mode = "Manual"
   }
+  # oms_agent {
+  #   log_analytics_workspace_id = var.log_analytics_workspace_id
+  #   msi_auth_for_monitoring_enabled = true 
+  # }
   network_profile {
     network_plugin    = "azure"
     network_policy    = "azure"
@@ -22,4 +27,8 @@ resource "azurerm_kubernetes_cluster" "cluster" {
     service_cidr      = var.aks.service_cidr
     dns_service_ip    = var.aks.dns_service_ip
   }
+  # monitor_metrics {
+  #   annotations_allowed = null 
+  #   labels_allowed = null 
+  # }
 }

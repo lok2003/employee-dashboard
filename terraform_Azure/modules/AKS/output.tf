@@ -12,3 +12,12 @@ output "aks_cluster_name" {
 output "aks_cluster_id" {
   value = azurerm_kubernetes_cluster.cluster.id
 }
+
+
+# output "log_analytics_workspace_id" {
+#   value = var.log_analytics_workspace_id
+# }
+
+# output "azure_monitor_workspace_id" {
+#   value = var.azure_monitor_workspace_id
+# }
