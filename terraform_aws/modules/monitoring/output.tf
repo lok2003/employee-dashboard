@@ -1,0 +1,11 @@
+output "log_group_name" {
+  value = aws_cloudwatch_log_group.eks.name
+}
+
+output "log_group_arn" {
+  value = aws_cloudwatch_log_group.eks.arn
+}
+
+output "dashboard_name" {
+  value = aws_cloudwatch_dashboard.eks.dashboard_name
+}

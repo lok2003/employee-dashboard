@@ -45,3 +45,10 @@ module "ecr" {
   source = "./modules/ecr"
   ecr    = var.ecr
 }
+
+module "monitoring" {
+  source        = "./modules/monitoring"
+  log_retention = var.log_retention
+  eks_cluster   = module.cluster.eks_cluster
+  alerts_email  = var.alerts_email
+}

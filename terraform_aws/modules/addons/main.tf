@@ -27,9 +27,19 @@ resource "aws_eks_addon" "ebs_csi" {
   addon_name   = "aws-ebs-csi-driver"
 
   depends_on = [aws_eks_addon.kube_proxy,
-                aws_eks_addon.pod_identity_agent ]
+  aws_eks_addon.pod_identity_agent]
 
 }
 
+resource "aws_eks_addon" "amazon_cloudwatch" {
+  cluster_name  = var.cluster_name
+  addon_name    = "amazon-cloudwatch-observability"
+  addon_version = "v6.7.0-eksbuild.1"
+  depends_on = [
+    aws_eks_addon.kube_proxy,
+    aws_eks_addon.pod_identity_agent,
+    aws_eks_addon.ebs_csi
+  ]
+}
 
 

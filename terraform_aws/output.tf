@@ -36,3 +36,10 @@ output "backend_arn" {
 output "backend_ecr_repository_url" {
   value = module.ecr.backend_ecr_repository_url
 }
+
+output "eks_log_group_name" {
+  value = module.monitoring.log_group_name
+}
+output "eks_log_group_arn" {
+  value = module.monitoring.log_group_arn
+}

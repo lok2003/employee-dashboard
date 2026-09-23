@@ -1,5 +1,5 @@
 .helmignore
-monitoring
+
 # Node.js
 
 node_modules/
@@ -104,7 +104,7 @@ desktop.ini
 *.tfvars.json
 crash.log
 crash.*.log
-
+/monitoring/
 # Terraform variable files
 
 # Keep example files in Git
@@ -113,7 +113,7 @@ crash.*.log
 
 # Terraform lock file should normally be committed
 
-# *.terraform.lock.hcl
+!*.terraform.lock.hcl
 
 
 

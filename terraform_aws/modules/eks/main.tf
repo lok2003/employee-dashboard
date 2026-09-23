@@ -9,4 +9,8 @@ resource "aws_eks_cluster" "eks_cluster" {
     subnet_ids = var.subnet_ids
   }
   #depends_on = [ modules/eks_node_role ]
+  enabled_cluster_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
+  tags = {
+    Environment = var.eks_cluster.tags
+  }
 }

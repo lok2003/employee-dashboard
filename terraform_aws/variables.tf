@@ -52,6 +52,7 @@ variable "eks_cluster" {
   type = object({
     name    = string
     version = string
+    tags    = string
   })
 }
 
@@ -72,3 +73,14 @@ variable "ecr" {
     image_tag_mutability = string
   })
 }
+
+variable "log_retention" {
+  type = object({
+    days = number
+  })
+}
+
+variable "alerts_email" {
+  type = string
+}
+
